@@ -1,0 +1,1 @@
+{"version":3,"file":"generate-hooks.node.d.ts","sourceRoot":"","sources":["../../../../src/ai/workflow/nodes/generate-hooks.node.ts"],"names":[],"mappings":"AAQA,OAAO,KAAK,EAAE,aAAa,EAAE,MAAM,aAAa,CAAC;AAEjD;;;;;;;;GAQG;AACH,wBAAgB,uBAAuB,CAAC,MAAM,EAAE,OAAO,EAAE,YAAY,SAAe,GAAG,OAAO,CA8F7F;AAED,wBAAsB,iBAAiB,CAAC,KAAK,EAAE,aAAa,GAAG,OAAO,CAAC,OAAO,CAAC,aAAa,CAAC,CAAC,CAiM7F"}

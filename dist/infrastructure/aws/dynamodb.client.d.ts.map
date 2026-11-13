@@ -1,0 +1,1 @@
+{"version":3,"file":"dynamodb.client.d.ts","sourceRoot":"","sources":["../../../src/infrastructure/aws/dynamodb.client.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,sBAAsB,EAAE,MAAM,uBAAuB,CAAC;AAC/D,OAAO,EAA+B,KAAK,cAAc,EAAE,MAAM,qBAAqB,CAAC;AAKvF;;;;;GAKG;AACH,wBAAgB,iBAAiB,CAAC,iBAAiB,CAAC,EAAE,cAAc,GAAG,sBAAsB,CA8C5F;AAED,uCAAuC;AACvC,wBAAgB,mBAAmB,IAAI,IAAI,CAE1C"}

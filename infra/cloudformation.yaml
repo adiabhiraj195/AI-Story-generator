@@ -1,0 +1,153 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Personal AI Story Generator — DynamoDB tables for stories, presets, and generation jobs'
+
+Parameters:
+  Environment:
+    Type: String
+    Default: 'production'
+    AllowedValues:
+      - 'development'
+      - 'staging'
+      - 'production'
+    Description: 'Deployment environment'
+
+  StoriesTableName:
+    Type: String
+    Default: 'personal-story-generator-stories'
+    Description: 'DynamoDB table name for stories'
+
+  PresetsTableName:
+    Type: String
+    Default: 'personal-story-generator-presets'
+    Description: 'DynamoDB table name for story presets'
+
+  GenerationsTableName:
+    Type: String
+    Default: 'personal-story-generator-generations'
+    Description: 'DynamoDB table name for generation jobs'
+
+Resources:
+  # ─── Stories Table ────────────────────────────────────────────────────────────
+  StoriesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Ref StoriesTableName
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: storyId
+          AttributeType: S
+        - AttributeName: GSI1PK
+          AttributeType: S
+        - AttributeName: GSI1SK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: storyId
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: GSI1
+          KeySchema:
+            - AttributeName: GSI1PK
+              KeyType: HASH
+            - AttributeName: GSI1SK
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      SSESpecification:
+        SSEEnabled: true
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: Application
+          Value: personal-story-generator
+
+  # ─── Presets Table ────────────────────────────────────────────────────────────
+  PresetsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Ref PresetsTableName
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: presetId
+          AttributeType: S
+        - AttributeName: GSI1PK
+          AttributeType: S
+        - AttributeName: GSI1SK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: presetId
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: GSI1
+          KeySchema:
+            - AttributeName: GSI1PK
+              KeyType: HASH
+            - AttributeName: GSI1SK
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      SSESpecification:
+        SSEEnabled: true
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: Application
+          Value: personal-story-generator
+
+  # ─── Generation Jobs Table ────────────────────────────────────────────────────
+  GenerationsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Ref GenerationsTableName
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: generationId
+          AttributeType: S
+        - AttributeName: GSI1PK
+          AttributeType: S
+        - AttributeName: GSI1SK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: generationId
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: GSI1
+          KeySchema:
+            - AttributeName: GSI1PK
+              KeyType: HASH
+            - AttributeName: GSI1SK
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      SSESpecification:
+        SSEEnabled: true
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: Application
+          Value: personal-story-generator
+
+Outputs:
+  StoriesTableArn:
+    Description: 'ARN of the Stories table'
+    Value: !GetAtt StoriesTable.Arn
+    Export:
+      Name: !Sub '${AWS::StackName}-StoriesTableArn'
+
+  PresetsTableArn:
+    Description: 'ARN of the Presets table'
+    Value: !GetAtt PresetsTable.Arn
+    Export:
+      Name: !Sub '${AWS::StackName}-PresetsTableArn'
+
+  GenerationsTableArn:
+    Description: 'ARN of the Generations table'
+    Value: !GetAtt GenerationsTable.Arn
+    Export:
+      Name: !Sub '${AWS::StackName}-GenerationsTableArn'
+
